@@ -66,6 +66,13 @@ Following the Lesson 5 `freshness_ranking` pattern from `on-device-mem/L5/helper
 - **`InMemoryMqttBus` & `InMemoryForkliftTransport`**: In-process pub/sub bus with `set_online(False/True)` to simulate Wi-Fi dead zones.
 - **`SQLiteOutbox`**: Durable FIFO table (`PENDING` → `SENT`) that buffers outbound messages while offline and drains them in order upon reconnection.
 
+### 2.6 Configurable Voice-to-Command & Implied Sentiment Routing (`src/pipeline/voice_commands.py`)
+
+Open-ended operator speech is mapped to structured forklift commands and implied sentiment **using only Qdrant Edge vector memory and few-shot sample utterances (`< 15 ms`) — no SLM is required**:
+
+1. **Configurable Command Registry (`CommandDefinition`)**: Each command (`command_id`, `implied_sentiment`, `priority`, `sample_utterances`) is loaded from JSON or Python config and embedded via `AudioEncoder` (`Whisper-Tiny` + `bge-small-en-v1.5`) into `forklift_audio_lane` (`source_type="command_sample"`, `ephemeral=False`).
+2. **Semantic & Sentiment Inference (`VoiceCommandRouter.infer_command`)**: Indirect or emotional speech (e.g., *"I cannot get through this aisle, something is in the way"*) matches the nearest sample utterance by cosine similarity and infers `REPORT_OBSTRUCTION` + `implied_sentiment="frustrated_blocked"` even when the command name is never spoken. Utterances below `match_threshold` are cleanly gated as `AMBIGUOUS` or `NO_MATCH`.
+
 ---
 
 ## 3. End-to-End Operational Lifecycle (4 Phases)
@@ -107,7 +114,8 @@ forklift/
 │   ├── demo.py                      # End-to-end 4-phase lifecycle simulation
 │   ├── pipeline/
 │   │   ├── encoders.py              # MobileCLIP-S0 / Whisper+bge-small / StateSerializer
-│   │   └── sensors.py               # CameraFrame, CabAudioClip, CanBusSnapshot
+│   │   ├── sensors.py               # CameraFrame, CabAudioClip, CanBusSnapshot
+│   │   └── voice_commands.py        # Configurable VoiceCommandRouter + implied sentiment
 │   ├── memory/
 │   │   ├── store.py                 # QdrantClientVectorStore & SQLite LocalDiskVectorStore
 │   │   └── orchestrator.py          # SiMaForkliftEdgeMemory (gating, fusion, forget)
@@ -117,7 +125,8 @@ forklift/
 │   └── wes/
 │       └── simulator.py             # JungheinrichWesSimulator (Digital Twin, Dispatcher, Reaper)
 └── tests/
-    └── test_edge_wes_lifecycle.py   # Lifecycle, HITL band, persistence, and freshness tests
+    ├── test_edge_wes_lifecycle.py   # Lifecycle, HITL band, persistence, and freshness tests
+    └── test_voice_commands.py       # Open-ended voice-to-command & sentiment tests
 ```
 
 ---
@@ -173,9 +182,11 @@ pytest -v
 **Observed Output:**
 
 ```text
-tests/test_edge_wes_lifecycle.py::test_full_four_phase_lifecycle PASSED  [ 33%]
-tests/test_edge_wes_lifecycle.py::test_unknown_object_band_and_noise_rejection PASSED [ 66%]
-tests/test_edge_wes_lifecycle.py::test_persistence_across_power_cycle_and_freshness_ranking PASSED [100%]
+tests/test_edge_wes_lifecycle.py::test_full_four_phase_lifecycle PASSED  [ 20%]
+tests/test_edge_wes_lifecycle.py::test_unknown_object_band_and_noise_rejection PASSED [ 40%]
+tests/test_edge_wes_lifecycle.py::test_persistence_across_power_cycle_and_freshness_ranking PASSED [ 60%]
+tests/test_voice_commands.py::test_open_ended_voice_to_configurable_command_and_sentiment PASSED [ 80%]
+tests/test_voice_commands.py::test_custom_configurable_command_and_ambiguous_gating PASSED [100%]
 
-============================== 3 passed in 0.90s ==============================
+============================== 5 passed in 0.71s ==============================
 ```
