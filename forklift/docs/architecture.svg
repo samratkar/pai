@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" width="100%" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="720" fill="#f8fafc" rx="12"/>
+
+  <!-- Top Container: Forklift Edge Node -->
+  <rect x="24" y="20" width="1052" height="445" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="24" y="20" width="1052" height="42" rx="12" fill="#0f172a"/>
+  <rect x="24" y="48" width="1052" height="14" fill="#0f172a"/>
+  <text x="46" y="47" fill="#ffffff" font-size="15" font-weight="700" letter-spacing="0.5">JUNGHEINRICH FORKLIFT — EDGE COMPUTE NODE (SiMa.ai MLSoC)</text>
+
+  <!-- Column Headers -->
+  <text x="165" y="88" text-anchor="middle" fill="#475569" font-size="12" font-weight="700">1. VEHICLE SENSORS &amp; BUS</text>
+  <text x="530" y="88" text-anchor="middle" fill="#475569" font-size="12" font-weight="700">2. SiMa.ai PALETTE INT8 PIPELINE</text>
+  <text x="900" y="88" text-anchor="middle" fill="#475569" font-size="12" font-weight="700">3. QDRANT EDGE ON-DISK STORE</text>
+
+  <!-- Row 1: Vision -->
+  <rect x="46" y="106" width="238" height="68" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="165" y="134" text-anchor="middle" fill="#0f172a" font-size="14" font-weight="600">RGB / Depth Cameras</text>
+  <text x="165" y="156" text-anchor="middle" fill="#475569" font-size="12">Fork &amp; Mast Optical Feeds</text>
+
+  <line x1="284" y1="140" x2="368" y2="140" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="374" y="106" width="312" height="68" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="530" y="134" text-anchor="middle" fill="#1e3a8a" font-size="14" font-weight="600">Vision Encoder (MobileCLIP-S0)</text>
+  <text x="530" y="156" text-anchor="middle" fill="#1d4ed8" font-size="12">INT8 Quantized • &lt;15 ms Latency</text>
+
+  <line x1="686" y1="140" x2="740" y2="140" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="746" y="106" width="308" height="68" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="900" y="134" text-anchor="middle" fill="#064e3b" font-size="14" font-weight="600">Lane 1: forklift_vision_lane</text>
+  <text x="900" y="156" text-anchor="middle" fill="#047857" font-size="12">512-d Cosine • Match ≥ 0.82 | Unknown 0.60–0.81</text>
+
+  <!-- Row 2: Audio -->
+  <rect x="46" y="192" width="238" height="68" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="165" y="220" text-anchor="middle" fill="#0f172a" font-size="14" font-weight="600">Cab &amp; Mast Mics</text>
+  <text x="165" y="242" text-anchor="middle" fill="#475569" font-size="12">Operator Voice &amp; Hydraulics</text>
+
+  <line x1="284" y1="226" x2="368" y2="226" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="374" y="192" width="312" height="68" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="530" y="220" text-anchor="middle" fill="#1e3a8a" font-size="14" font-weight="600">Whisper-Tiny + bge-small-en-v1.5</text>
+  <text x="530" y="242" text-anchor="middle" fill="#1d4ed8" font-size="12">On-Device ASR + Semantic Embed</text>
+
+  <line x1="686" y1="226" x2="740" y2="226" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="746" y="192" width="308" height="68" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="900" y="220" text-anchor="middle" fill="#064e3b" font-size="14" font-weight="600">Lane 2: forklift_audio_lane</text>
+  <text x="900" y="242" text-anchor="middle" fill="#047857" font-size="12">384-d Cosine • Threshold: 0.74</text>
+
+  <!-- Row 3: Ops Telemetry -->
+  <rect x="46" y="278" width="238" height="68" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="165" y="306" text-anchor="middle" fill="#0f172a" font-size="14" font-weight="600">SocketCAN &amp; WES Tasks</text>
+  <text x="165" y="328" text-anchor="middle" fill="#475569" font-size="12">Load, Mast Height, Battery SoC</text>
+
+  <line x1="284" y1="312" x2="368" y2="312" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="374" y="278" width="312" height="68" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="530" y="306" text-anchor="middle" fill="#1e3a8a" font-size="14" font-weight="600">State Serializer + bge-small-en</text>
+  <text x="530" y="328" text-anchor="middle" fill="#1d4ed8" font-size="12">1 Hz Telemetry State Encoding</text>
+
+  <line x1="686" y1="312" x2="740" y2="312" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="746" y="278" width="308" height="68" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="900" y="306" text-anchor="middle" fill="#064e3b" font-size="14" font-weight="600">Lane 3: forklift_ops_lane</text>
+  <text x="900" y="328" text-anchor="middle" fill="#047857" font-size="12">384-d Cosine • Threshold: 0.78</text>
+
+  <!-- Orchestrator Box -->
+  <line x1="900" y1="346" x2="900" y2="368" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <rect x="46" y="372" width="1008" height="72" rx="8" fill="#fefce8" stroke="#eab308" stroke-width="2"/>
+  <text x="550" y="400" text-anchor="middle" fill="#713f12" font-size="14" font-weight="700">EDGE MEMORY ORCHESTRATOR (SiMaForkliftEdgeMemory + ForkliftEdgeNode)</text>
+  <text x="550" y="424" text-anchor="middle" fill="#854d0e" font-size="12.5">Per-Lane Threshold Gating • Cross-Lane Incident Fusion + Freshness Decay • Ephemeral "Forget" GC • SQLite Store-and-Forward Outbox</text>
+
+  <!-- MQTT Bridge Pill -->
+  <line x1="550" y1="444" x2="550" y2="480" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="5,4" marker-end="url(#arrow-blue)" marker-start="url(#arrow-blue)"/>
+  <rect x="330" y="484" width="440" height="44" rx="22" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="550" y="511" text-anchor="middle" fill="#0c4a6e" font-size="13.5" font-weight="600">Async MQTT over TLS (jh/fleet/...) — Resilient Sync</text>
+  <line x1="550" y1="528" x2="550" y2="556" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="5,4" marker-end="url(#arrow-blue)" marker-start="url(#arrow-blue)"/>
+
+  <!-- Bottom Container: Jungheinrich WES -->
+  <rect x="24" y="560" width="1052" height="140" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="24" y="560" width="1052" height="40" rx="12" fill="#0f172a"/>
+  <rect x="24" y="586" width="1052" height="14" fill="#0f172a"/>
+  <text x="46" y="585" fill="#ffffff" font-size="14.5" font-weight="700" letter-spacing="0.5">JUNGHEINRICH WAREHOUSE EXECUTION SYSTEM (WES) — CENTRAL FLEET ORCHESTRATION</text>
+
+  <rect x="46" y="616" width="320" height="66" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="206" y="643" text-anchor="middle" fill="#0f172a" font-size="13.5" font-weight="600">Fleet Event &amp; Digital Twin</text>
+  <text x="206" y="665" text-anchor="middle" fill="#475569" font-size="12">Updates live aisle maps &amp; HITL queue</text>
+
+  <rect x="390" y="616" width="320" height="66" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="550" y="643" text-anchor="middle" fill="#0f172a" font-size="13.5" font-weight="600">Few-Shot Vector Dispatcher</text>
+  <text x="550" y="665" text-anchor="middle" fill="#475569" font-size="12">Pushes 2–3 ref vectors for new SKUs/hazards</text>
+
+  <rect x="734" y="616" width="320" height="66" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="894" y="643" text-anchor="middle" fill="#0f172a" font-size="13.5" font-weight="600">Ephemeral State Reaper</text>
+  <text x="894" y="665" text-anchor="middle" fill="#475569" font-size="12">Broadcasts "forget_zone" on task close</text>
+</svg>
+
