@@ -1,0 +1,378 @@
+<mxfile host="65bd71144e" pages="2">
+    <diagram id="e2e_arch" name="1. End-to-End Architecture">
+        <mxGraphModel dx="578" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1620" pageHeight="1050" background="#FFFFFF" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="box_3" value="&lt;b&gt;End-to-End Architecture: SiMa.ai MLSoC + Qdrant Edge ↔ MQTT Broker (TLS) ↔ Jungheinrich WES&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=15;fontStyle=0;fillColor=#0F172A;strokeColor=#0F172A;strokeWidth=1.5;fontColor=#FFFFFF;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="15" width="1550" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_4" value="JUNGHEINRICH FORKLIFT — EDGE COMPUTE NODE (SiMa.ai MLSoC)" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#F8FAFC;strokeColor=#334155;strokeWidth=2;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="75" width="870" height="895" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_5" value="1. Vehicle Sensors &amp;amp; Bus" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#F1F5F9;strokeColor=#94A3B8;strokeWidth=2;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="115" width="205" height="345" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_6" value="&lt;b&gt;RGB / Depth Cameras&lt;/b&gt;&lt;br/&gt;Fork &amp;amp; Mast Optical Feeds" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#64748B;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="65" y="155" width="175" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_7" value="&lt;b&gt;Cab &amp;amp; Mast Mics&lt;/b&gt;&lt;br/&gt;Voice &amp;amp; Hydraulics" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#64748B;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="65" y="255" width="175" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_8" value="&lt;b&gt;SocketCAN (can0)&lt;/b&gt;&lt;br/&gt;1 Hz Load, Mast, SoC" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#64748B;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="65" y="355" width="175" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_9" value="2. SiMa.ai Palette INT8 Pipeline" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=2;fontColor=#1E3A8A;" parent="1" vertex="1">
+                    <mxGeometry x="295" y="115" width="240" height="345" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_10" value="&lt;b&gt;VisionEncoder&lt;/b&gt;&lt;br/&gt;MobileCLIP-S0 (INT8)&lt;br/&gt;512-d • &amp;lt;15 ms" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#3B82F6;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="155" width="210" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_11" value="&lt;b&gt;AudioEncoder&lt;/b&gt;&lt;br/&gt;Whisper-Tiny + bge-small&lt;br/&gt;384-d Semantic Embed" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#3B82F6;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="255" width="210" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_12" value="&lt;b&gt;TelemetryEncoder&lt;/b&gt;&lt;br/&gt;StateSerializer + bge-small&lt;br/&gt;384-d State Embed" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#3B82F6;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="355" width="210" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_13" value="3. Qdrant Edge On-Disk Store (NVMe)" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#ECFDF5;strokeColor=#10B981;strokeWidth=2;fontColor=#065F46;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="115" width="260" height="345" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_14" value="&lt;b&gt;forklift_vision_lane&lt;/b&gt;&lt;br/&gt;512-d Cosine&lt;br/&gt;Match ≥0.82 | HITL 0.60–0.81" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#10B981;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="605" y="155" width="230" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_15" value="&lt;b&gt;forklift_audio_lane&lt;/b&gt;&lt;br/&gt;384-d Cosine&lt;br/&gt;Threshold: 0.74" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#10B981;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="605" y="255" width="230" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_16" value="&lt;b&gt;forklift_ops_lane&lt;/b&gt;&lt;br/&gt;384-d Cosine&lt;br/&gt;Threshold: 0.78" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#10B981;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="605" y="355" width="230" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_17" value="4. Edge Memory Orchestrator (SiMaForkliftEdgeMemory + ForkliftEdgeNode)" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#FEFCE8;strokeColor=#EAB308;strokeWidth=2;fontColor=#713F12;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="505" width="800" height="195" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_18" value="&lt;b&gt;3-Tier Threshold Gating&lt;/b&gt;&lt;br/&gt;≥0.82 MATCHED&lt;br/&gt;0.60–0.81 UNKNOWN_OBJECT&lt;br/&gt;&amp;lt;0.60 IGNORED" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="70" y="550" width="225" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_19" value="&lt;b&gt;Cross-Lane Incident Fusion&lt;/b&gt;&lt;br/&gt;Correlates Vision + Audio + CAN&lt;br/&gt;Exponential Freshness Decay&lt;br/&gt;(half_life=900s, w=0.10)" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="335" y="550" width="240" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_20" value="&lt;b&gt;Ephemeral 'Forget' GC&lt;/b&gt;&lt;br/&gt;Purges ephemeral=True by zone_id&lt;br/&gt;Preserves ephemeral=False&lt;br/&gt;few-shot SKU references" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="615" y="550" width="215" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_21" value="5. Dead-Zone Resilience &amp;amp; MQTT Client (src/sync/)" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#F1F5F9;strokeColor=#64748B;strokeWidth=2;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="740" width="800" height="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_22" value="&lt;b&gt;SQLiteOutbox (outbox.db)&lt;/b&gt;&lt;br/&gt;Durable FIFO Queue (PENDING → SENT)&lt;br/&gt;Buffers incidents during Wi-Fi dropouts" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#0284C7;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="790" width="325" height="135" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_23" value="&lt;b&gt;EdgeMqttBridge + PahoMqttTransport&lt;/b&gt;&lt;br/&gt;paho-mqtt v2 • TLS 1.3 (Port 8883) • QoS 1&lt;br/&gt;Drains outbox FIFO on reconnect" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#E0F2FE;strokeColor=#0284C7;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="475" y="790" width="350" height="135" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_24" value="WAREHOUSE NETWORK &amp;amp; MQTT BROKER" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#FFF7ED;strokeColor=#EA580C;strokeWidth=2;fontColor=#9A3412;dashed=1;dashPattern=6 4;" parent="1" vertex="1">
+                    <mxGeometry x="945" y="75" width="250" height="895" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_25" value="&lt;b&gt;Wi-Fi 6 / Cold-Storage&lt;br/&gt;Dead-Zone Boundary&lt;/b&gt;&lt;br/&gt;(Intermittent Connectivity)" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=1.5;fontColor=#991B1B;" parent="1" vertex="1">
+                    <mxGeometry x="970" y="145" width="200" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_26" value="&lt;b&gt;MQTT Broker Cluster&lt;/b&gt;&lt;br/&gt;(Mosquitto / EMQX)&lt;br/&gt;&lt;br/&gt;• Port 8883 (TLS 1.3 + mTLS)&lt;br/&gt;• QoS 1 At-Least-Once&lt;br/&gt;• Wildcard Routing (+ / #)&lt;br/&gt;• Persistent Sessions" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#EA580C;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="965" y="420" width="210" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_27" value="JUNGHEINRICH WAREHOUSE EXECUTION SYSTEM (WES)" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#F8FAFC;strokeColor=#0F172A;strokeWidth=2;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="1255" y="75" width="325" height="895" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_28" value="&lt;b&gt;WES MQTT Ingestion Service&lt;/b&gt;&lt;br/&gt;Subscribes:&lt;br/&gt;jh/fleet/+/edge/incident&lt;br/&gt;jh/fleet/+/edge/unknown_object" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#EFF6FF;strokeColor=#1D4ED8;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="1275" y="145" width="260" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_29" value="&lt;b&gt;Fleet Event &amp;amp; Digital Twin&lt;/b&gt;&lt;br/&gt;Updates live aisle status map&lt;br/&gt;(e.g. AISLE-04: OBSTRUCTED)&lt;br/&gt;Reroutes AGVs &amp;amp; forklifts" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#334155;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="1275" y="305" width="260" height="125" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_30" value="&lt;b&gt;HITL Review &amp;amp; Embedder&lt;/b&gt;&lt;br/&gt;Reviews unknown_object ROI&lt;br/&gt;Encodes 2–3 ref vectors&lt;br/&gt;for new SKUs / hazards" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FEFCE8;strokeColor=#D97706;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="1275" y="470" width="260" height="125" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_31" value="&lt;b&gt;Few-Shot Vector Dispatcher&lt;/b&gt;&lt;br/&gt;Publishes:&lt;br/&gt;jh/fleet/broadcast/edge/enroll_sku" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#ECFDF5;strokeColor=#047857;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="1275" y="635" width="260" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_32" value="&lt;b&gt;Ephemeral State Reaper&lt;/b&gt;&lt;br/&gt;Publishes on task close:&lt;br/&gt;jh/fleet/broadcast/edge/forget_zone" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=1.5;fontColor=#0F172A;" parent="1" vertex="1">
+                    <mxGeometry x="1275" y="790" width="260" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_6" target="box_10" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_34" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_7" target="box_11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_35" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_8" target="box_12" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_36" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_10" target="box_14" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_37" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_11" target="box_15" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_38" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_12" target="box_16" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_39" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.0;exitY=0.8;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_14" target="box_18" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="560" y="215"/>
+                            <mxPoint x="560" y="475"/>
+                            <mxPoint x="182" y="475"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_40" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.0;exitY=0.8;exitDx=0;exitDy=0;entryX=0.35;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_15" target="box_19" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="575" y="315"/>
+                            <mxPoint x="575" y="488"/>
+                            <mxPoint x="419" y="488"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_41" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.75;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_16" target="box_19" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="720" y="475"/>
+                            <mxPoint x="515" y="475"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_42" value="≥0.82" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_18" target="box_19" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_43" value="Incident / Unknown" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.25;exitY=1.0;exitDx=0;exitDy=0;entryX=0.65;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_19" target="box_22" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="395" y="720"/>
+                            <mxPoint x="291" y="720"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_44" value="FIFO Drain" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_22" target="box_23" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_45" value="forget_zone" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#DC2626;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.65;exitY=0.0;exitDx=0;exitDy=0;entryX=0.45;entryY=1.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_23" target="box_20" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="702" y="720"/>
+                            <mxPoint x="712" y="720"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_46" value="Delete ephemeral=True" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#DC2626;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_20" target="box_14" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="875" y="615"/>
+                            <mxPoint x="875" y="192"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_47" value="PUB: incident / unknown_object&#10;(TLS 8883, QoS 1)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#0284C7;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.3;exitDx=0;exitDy=0;entryX=0.0;entryY=0.72;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_23" target="box_26" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="920" y="830"/>
+                            <mxPoint x="920" y="585"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_48" value="SUB: enroll_sku / forget_zone" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#047857;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.0;exitY=0.88;exitDx=0;exitDy=0;entryX=1.0;entryY=0.7;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_26" target="box_23" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="932" y="622"/>
+                            <mxPoint x="932" y="885"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_49" value="Route jh/fleet/+/edge/*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#0284C7;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.22;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_26" target="box_28" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1220" y="470"/>
+                            <mxPoint x="1220" y="205"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_50" value="Update Aisle Map" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_28" target="box_29" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_51" value="Unknown ROI" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.65;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_28" target="box_30" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1558" y="223"/>
+                            <mxPoint x="1558" y="532"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_52" value="2–3 Ref Vectors" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_30" target="box_31" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_53" value="PUB: enroll_sku" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#047857;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.0;entryY=0.55;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_31" target="box_26" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1220" y="692"/>
+                            <mxPoint x="1220" y="546"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_54" value="PUB: forget_zone" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#DC2626;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.0;entryY=0.82;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" parent="1" source="box_32" target="box_26" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1235" y="847"/>
+                            <mxPoint x="1235" y="608"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="deploy_arch" name="2. Deployment Architecture">
+        <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1620" pageHeight="1050" math="0" shadow="0" background="#FFFFFF">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="box_3" value="&lt;b&gt;Deployment Architecture: On-Vehicle SiMa.ai MLSoC Fleet → HA MQTT Broker → Jungheinrich WES Cluster&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=15;fontStyle=0;fillColor=#0F172A;strokeColor=#0F172A;strokeWidth=1.5;fontColor=#FFFFFF;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="15" width="1550" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_4" value="WAREHOUSE FLOOR — JUNGHEINRICH FORKLIFT FLEET (ON-VEHICLE EDGE)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#F8FAFC;strokeColor=#334155;strokeWidth=2;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="75" width="520" height="895" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_5" value="Forklift JH-ETV-216i-09 (SiMa.ai MLSoC • &amp;lt;10 W Fanless)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E3A8A;" vertex="1" parent="1">
+                    <mxGeometry x="50" y="120" width="480" height="565" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_6" value="&lt;b&gt;Vehicle Interfaces&lt;/b&gt;&lt;br/&gt;• GStreamer Fork/Mast Cameras&lt;br/&gt;• Cab/Hydraulic Mic Array&lt;br/&gt;• SocketCAN (can0 @ 1 Hz)" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#F1F5F9;strokeColor=#64748B;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="165" width="415" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_7" value="&lt;b&gt;Container: forklift-edge-memory (Python 3.11 + mla-rt)&lt;/b&gt;&lt;br/&gt;• INT8 Models: MobileCLIP-S0, Whisper-Tiny, bge-small&lt;br/&gt;• ForkliftEdgeNode + SiMaForkliftEdgeMemory&lt;br/&gt;• PahoMqttTransport (TLS 1.3 Client Cert)" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="280" width="415" height="125" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_8" value="&lt;b&gt;Local NVMe / eMMC Flash Storage&lt;/b&gt;&lt;br/&gt;• /edge_data/qdrant_edge (3 Vector Lanes)&lt;br/&gt;• /edge_data/outbox.db (SQLite Store-and-Forward)" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#ECFDF5;strokeColor=#10B981;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="435" width="415" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_9" value="&lt;b&gt;Wi-Fi 6 / Private 5G Vehicle NIC&lt;/b&gt;&lt;br/&gt;(Survives Cold-Storage Dead Zones &amp;amp; Battery Swaps)" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FEFCE8;strokeColor=#D97706;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="560" width="415" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_10" value="&lt;b&gt;Forklift JH-ETV-216i-12&lt;/b&gt;&lt;br/&gt;SiMa.ai MLSoC + Qdrant Edge + SQLiteOutbox" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#64748B;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="50" y="715" width="480" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_11" value="&lt;b&gt;Forklift JH-EKX-516-04 (Fleet N)&lt;/b&gt;&lt;br/&gt;SiMa.ai MLSoC + Qdrant Edge + SQLiteOutbox" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#64748B;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="50" y="840" width="480" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_12" value="WAREHOUSE NETWORK / EDGE DMZ" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#FFF7ED;strokeColor=#EA580C;strokeWidth=2;fontColor=#9A3412;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="75" width="350" height="895" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_13" value="&lt;b&gt;Warehouse Wi-Fi 6 APs / Private 5G&lt;/b&gt;&lt;br/&gt;+ Cold-Storage Shielded Dead Zones" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=1.5;fontColor=#991B1B;" vertex="1" parent="1">
+                    <mxGeometry x="630" y="145" width="310" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_14" value="&lt;b&gt;TLS Load Balancer (HAProxy / Envoy)&lt;/b&gt;&lt;br/&gt;Port 8883 • TLS 1.3 Termination / Passthrough&lt;br/&gt;Mutual TLS (X.509 Fleet Certificates)" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#EA580C;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="630" y="290" width="310" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_15" value="&lt;b&gt;MQTT Broker Node 1 (EMQX / Mosquitto)&lt;/b&gt;&lt;br/&gt;Clustered State • QoS 1 • Topic ACLs" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#EA580C;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="630" y="450" width="310" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_16" value="&lt;b&gt;MQTT Broker Node 2 (Failover)&lt;/b&gt;&lt;br/&gt;Shared Subscriptions for WES Consumers" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FFFFFF;strokeColor=#EA580C;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="630" y="595" width="310" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_17" value="&lt;b&gt;Internal PKI / Cert Manager&lt;/b&gt;&lt;br/&gt;Issues per-forklift X.509 client certs" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#F1F5F9;strokeColor=#64748B;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="630" y="745" width="310" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_18" value="ON-PREMISE DATA CENTER / PRIVATE CLOUD — JUNGHEINRICH WES CLUSTER" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#F8FAFC;strokeColor=#0F172A;strokeWidth=2;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="1020" y="75" width="560" height="895" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp_19" value="Kubernetes / OpenShift WES Namespace" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fillColor=#FFFFFF;strokeColor=#334155;strokeWidth=2;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="1040" y="125" width="520" height="570" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_20" value="&lt;b&gt;WES MQTT Connector Pods (2+ Replicas)&lt;/b&gt;&lt;br/&gt;Shared Sub: $share/wes/jh/fleet/+/edge/#" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#EFF6FF;strokeColor=#1D4ED8;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="1080" y="175" width="440" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_21" value="&lt;b&gt;Jungheinrich WES Core &amp;amp; Digital Twin&lt;/b&gt;&lt;br/&gt;• Real-time Aisle Obstruction Map&lt;br/&gt;• AGV / Forklift Task Rerouting&lt;br/&gt;• Ephemeral State Reaper (forget_zone)" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#F8FAFC;strokeColor=#0F172A;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="1080" y="295" width="440" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_22" value="&lt;b&gt;HITL Review UI &amp;amp; MobileCLIP Embedder&lt;/b&gt;&lt;br/&gt;• Operator labels unknown_object ROIs&lt;br/&gt;• Generates 2–3 512-d vectors → enroll_sku" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#FEFCE8;strokeColor=#D97706;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="1080" y="455" width="440" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_23" value="&lt;b&gt;WES Task &amp;amp; Fleet API (REST / gRPC)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#F1F5F9;strokeColor=#64748B;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="1080" y="600" width="440" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="box_24" value="&lt;b&gt;PostgreSQL / TimescaleDB&lt;/b&gt;&lt;br/&gt;• Fleet Incident Audit Log&lt;br/&gt;• SKU Reference Vector Registry&lt;br/&gt;• Aisle &amp;amp; Task State History" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fillColor=#ECFDF5;strokeColor=#047857;strokeWidth=1.5;fontColor=#0F172A;" vertex="1" parent="1">
+                    <mxGeometry x="1040" y="735" width="520" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_25" value="GStreamer / CAN" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_6" target="box_7">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_26" value="NVMe R/W" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_7" target="box_8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_27" value="MQTT/TLS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.7;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_7" target="box_9">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="508" y="368"/>
+                            <mxPoint x="508" y="607"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_28" value="TLS 8883" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#0284C7;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=classic;startFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.25;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_9" target="box_14">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="565" y="607"/>
+                            <mxPoint x="565" y="318"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_29" value="TLS 8883" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#0284C7;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=classic;startFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.55;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_10" target="box_14">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="580" y="762"/>
+                            <mxPoint x="580" y="350"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_30" value="TLS 8883" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#0284C7;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=classic;startFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.85;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_11" target="box_14">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="595" y="887"/>
+                            <mxPoint x="595" y="383"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_14" target="box_15">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_32" value="Cluster Sync" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=classic;startFill=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_15" target="box_16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_33" value="MQTT QoS 1 (TLS)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#047857;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=classic;startFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_15" target="box_20">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="990" y="500"/>
+                            <mxPoint x="990" y="220"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_34" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_20" target="box_21">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_35" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_21" target="box_22">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_36" value="Audit Incidents" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=0.0;exitY=0.7;exitDx=0;exitDy=0;entryX=0.15;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_21" target="box_24">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1058" y="386"/>
+                            <mxPoint x="1058" y="712"/>
+                            <mxPoint x="1118" y="712"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_37" value="Persist SKUs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Segoe UI;fontSize=11;fontColor=#0F172A;strokeColor=#475569;strokeWidth=1.8;endArrow=classic;endFill=1;startArrow=none;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.85;entryY=0.0;entryDx=0;entryDy=0;labelBackgroundColor=#FFFFFF;labelBorderColor=#CBD5E1;" edge="1" parent="1" source="box_22" target="box_24">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1542" y="512"/>
+                            <mxPoint x="1542" y="712"/>
+                            <mxPoint x="1482" y="712"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
